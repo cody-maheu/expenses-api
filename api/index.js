@@ -47,20 +47,9 @@ app.get("/total", (req, res) => {
   res.send({ total, count: expenses.length });
 });
 
-app.use(
- auth({
-   secret: SESSION_SECRET,
-   authRequired: false,
-   auth0Logout: true,
-   baseURL: APP_URL,
-   // 👇 add this 👇
-   authorizationParams: {
-     response_type: "code id_token",
-     audience: "https://expenses-api",
-   },
-   // 👆 add this 👆
- })
-);
+// 👆 public routes above 👆
+app.use(auth());
+// 👇 private routes below 👇
 
 app.get("/reports", (req, res) => {
   res.send(expenses);
